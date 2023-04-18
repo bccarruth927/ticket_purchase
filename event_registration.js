@@ -17,22 +17,7 @@ var ticketSurcharge = 0.50;
 
 import { changeBackgroundColor, revealContactBlock } from './modules/helper-functions.js';
 
-//Variable declarations for form input fields
-const submitBtn = document.getElementById('submit');
-const ticketNumber = document.getElementById('numTickets');
-const totalCost = document.getElementById('totalCost');
-const userName = document.getElementById('name');
-const userEmail = document.getElementById('email');
-const contactBlock = document.getElementById('contactInformation');
-
-//Variable declarations for input error message
-const nameError = document.getElementById('msgname');
-const emailError = document.getElementById('msgemail');
-const ticketsError = document.getElementById('msgTickets');
-
-//Variable declarations for the regular expressions
-const lettersRegEx = /^[A-Za-z\s]+$/;
-const emailRegEx = /^\S+@\S+(\.)\S+$/;
+import { formInputs, regExpressions } from './modules/object.js';
 
 //Countdown timer
 let timer;
@@ -69,50 +54,50 @@ const calculateTotal = () => {
 	});
 
 	switch (true) {
-		case (isNaN(ticketNumber.value)):
-			ticketsError.innerHTML = 'Please enter a valid number!';
-			totalCost.value = '$0.00';
+		case (isNaN(formInputs.tickets.number.value)):
+			formInputs.tickets.error.innerHTML = 'Please enter a valid number!';
+			formInputs.cost.value = '$0.00';
 			break;
-		case (ticketNumber.value < minTickets || ticketNumber.value > maxTickets):
-			ticketsError.innerHTML = 'Please enter a number between 1 and 3!';
-			totalCost.value = '$0.00';
+		case (formInputs.tickets.number.value < minTickets || formInputs.tickets.number.value > maxTickets):
+			formInputs.tickets.error.innerHTML = 'Please enter a number between 1 and 3!';
+			formInputs.cost.value = '$0.00';
 			break;
-		case (ticketNumber.value == 1):
-			ticketsError.innerHTML = "";
-			totalCost.value = USDollar.format(ticketPrice);
+		case (formInputs.tickets.number.value == 1):
+			formInputs.tickets.error.innerHTML = "";
+			formInputs.cost.value = USDollar.format(ticketPrice);
 			break;
-		case (ticketNumber.value == 2):
-			ticketsError.innerHTML = "";
-			totalCost.value = USDollar.format(ticketPrice * 2);
+		case (formInputs.tickets.number.value == 2):
+			formInputs.tickets.error.innerHTML = "";
+			formInputs.cost.value = USDollar.format(ticketPrice * 2);
 			break;
-		case (ticketNumber.value == 3):
-			ticketsError.innerHTML = "";
-			totalCost.value = USDollar.format(ticketPrice * 3);
+		case (formInputs.tickets.number.value == 3):
+			formInputs.tickets.error.innerHTML = "";
+			formInputs.cost.value = USDollar.format(ticketPrice * 3);
 			break;
 	};
 
 	//Function to change the background color based on if there is an error message
-	changeBackgroundColor(ticketsError, ticketNumber);
+	changeBackgroundColor(formInputs.tickets.error, formInputs.tickets.number);
 
 	//Function to change the display of the contact block based on if there is an error message
-	revealContactBlock(ticketsError, contactBlock);
+	revealContactBlock(formInputs.tickets.error, formInputs.contact);
 };
 
 //Event listener for the onchange event
-ticketNumber.addEventListener('change', calculateTotal);
+formInputs.tickets.number.addEventListener('change', calculateTotal);
 
 //Function to validate the name and email address inputs and complete the purchase of the tickets
 
 const completePurchase = (e) => {
 	//Validation for the name and email inputs
-	if (!userName.value.match(lettersRegEx)) {
-		userName.focus();
-		nameError.innerHTML = 'Please enter a valid name!';
+	if (!formInputs.name.id.value.match(regExpressions.letters)) {
+		formInputs.name.id.focus();
+		formInputs.name.error.innerHTML = 'Please enter a valid name!';
 		e.preventDefault();
 		return false;
-	} else if (!userEmail.value.match(emailRegEx)) {
-		userEmail.focus();
-		emailError.innerHTML = 'Please enter a valid email';
+	} else if (!formInputs.email.id.value.match(regExpressions.email)) {
+		formInputs.email.id.focus();
+		formInputs.email.error.innerHTML = 'Please enter a valid email';
 		e.preventDefault();
 		return false;
 	} 
@@ -124,5 +109,5 @@ const completePurchase = (e) => {
 };
 
 //Event listener for the submit button on the form
-submitBtn.addEventListener('click', completePurchase);
+formInputs.submit.addEventListener('click', completePurchase);
 
