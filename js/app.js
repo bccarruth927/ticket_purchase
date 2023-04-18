@@ -16,10 +16,10 @@ var ticketSurcharge = 0.50;
 /*** YOUR CODE STARTS BELOW HERE ***/
 
 //Import statement for the helper functions from helper-functions.js
-import { changeBackgroundColor, revealContactBlock } from './modules/helper-functions.js';
+import { changeBackgroundColor, revealContactBlock } from '../modules/helper-functions.js';
 
 //Import statement for the objects from object.js
-import { formInputs, regExpressions } from './modules/object.js';
+import { formInputs, regExpressions } from '../modules/object.js';
 
 //Countdown timer
 
