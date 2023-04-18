@@ -15,6 +15,8 @@ var ticketSurcharge = 0.50;
 
 /*** YOUR CODE STARTS BELOW HERE ***/
 
+import { changeBackgroundColor, revealContactBlock } from './modules/helper-functions.js';
+
 //Variable declarations for form input fields
 const submitBtn = document.getElementById('submit');
 const ticketNumber = document.getElementById('numTickets');
@@ -68,39 +70,36 @@ const calculateTotal = () => {
 
 	switch (true) {
 		case (isNaN(ticketNumber.value)):
-			ticketNumber.style.backgroundColor = 'goldenrod';
 			ticketsError.innerHTML = 'Please enter a valid number!';
-			ticketNumber.focus();
 			totalCost.value = '$0.00';
-			contactBlock.style.display = 'none';
 			break;
 		case (ticketNumber.value < minTickets || ticketNumber.value > maxTickets):
-			ticketNumber.style.backgroundColor = 'goldenrod';
 			ticketsError.innerHTML = 'Please enter a number between 1 and 3!';
-			ticketNumber.focus();
 			totalCost.value = '$0.00';
-			contactBlock.style.display = 'none';
 			break;
 		case (ticketNumber.value == 1):
-			ticketNumber.style.background = '#efefef';
 			ticketsError.innerHTML = "";
 			totalCost.value = USDollar.format(ticketPrice);
-			contactBlock.style.display = 'block';
 			break;
 		case (ticketNumber.value == 2):
-			ticketNumber.style.background = '#efefef';
 			ticketsError.innerHTML = "";
 			totalCost.value = USDollar.format(ticketPrice * 2);
-			contactBlock.style.display = 'block';
 			break;
 		case (ticketNumber.value == 3):
-			ticketNumber.style.background = '#efefef';
 			ticketsError.innerHTML = "";
 			totalCost.value = USDollar.format(ticketPrice * 3);
-			contactBlock.style.display = 'block';
 			break;
 	};
+
+	//Function to change the background color based on if there is an error message
+	changeBackgroundColor(ticketsError, ticketNumber);
+
+	//Function to change the display of the contact block based on if there is an error message
+	revealContactBlock(ticketsError, contactBlock);
 };
+
+//Event listener for the onchange event
+ticketNumber.addEventListener('change', calculateTotal);
 
 //Function to validate the name and email address inputs and complete the purchase of the tickets
 
