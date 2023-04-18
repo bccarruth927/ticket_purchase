@@ -31,7 +31,7 @@
 					<legend>Digital Media and Web Technology (DMWT) Alumni Event Registration</legend>
 				
 					<label for="lastnum">How many tickets would you like to purchase? You can purchase up to 3 tickets. <span class="required">*</span></label>
-					<input type="text" id="numTickets" name="numTickets" class="small" maxlength="3" onchange="calculateTotal();" />
+					<input type="text" id="numTickets" name="numTickets" class="small" maxlength="3" />
 					<span id="msgTickets" class="error"></span>
 					
 					<label for="totalCost">Your total cost will be: </label>
@@ -56,6 +56,6 @@
 			</form>
 		</section>
 	</article>
-	<script type="text/javascript" src="event_registration.js"></script>
+	<script type="module" src="event_registration.js"></script>
 </body>
 </html>
