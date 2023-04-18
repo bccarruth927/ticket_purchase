@@ -1,6 +1,6 @@
 /*
 		Your Name: Brenden Carruth
-		Last Modified Date: 04/19/2023
+		Last Modified Date: 04/18/2023
 		File: event_registration.js
 		File Description: This file is intended to provide the functions for the ticket form as well as
 		the countdown timer
@@ -15,44 +15,58 @@ var ticketSurcharge = 0.50;
 
 /*** YOUR CODE STARTS BELOW HERE ***/
 
+//Import statement for the helper functions from helper-functions.js
 import { changeBackgroundColor, revealContactBlock } from './modules/helper-functions.js';
 
+//Import statement for the objects from object.js
 import { formInputs, regExpressions } from './modules/object.js';
 
 //Countdown timer
+
+//Variable declarations for the countdown timer
 let timer;
 let minute = 9;
 let second = 60;
 
+//Timer function controlling the countdown from 10 minutes
 timer = setInterval( function(){
+	//Conditional for if the countdown timer reaches 00:00 resets the webpage after alerting the user
 	if (minute == 0 && second == 1) {
 		document.getElementById('timer').innerHTML = '00:00';
 		alert('Sorry your time has expired! Please try again if you still wish to purchase tickets!');
 		location.href;
+	//Countdown timer functionality
 	} else {
+		//Decrease the timer by 1 second each interval
 		second--;
+		//Conditional for if the second variable reaches 0 reduce minute by 1 and reset second variable to 60
 		if (second == 0) {
 			minute--;
 			second = 60;
+			//Conditional for if the minute reaches 0 the minute variable changes
 			if (minute == 0) {
 				minute = minute;
 			}
 		}
-
+		//The change in the HTML based on the interval adjustments
 		document.getElementById('timer').innerHTML = `${minute}:${second}`;
 	}
-}, 1000)
+}, 1000);
 
 //Function to calculate the total cost of tickets; set to change the price of the total based on the change in the ticket number
 const calculateTotal = () => {
 
+	//Variable declaration adding together the ticket cost and the surcharge into one variable
 	const ticketPrice = costPerTicket + ticketSurcharge;
 
+	//Variable containing the contructed currency format to convert a number into US currency
 	let USDollar = new Intl.NumberFormat('en-US', {
 		style: 'currency',
 		currency: 'USD',
 	});
 
+	/*Switch statement validating the inputs entered into the ticket number input while also 
+	adjusting total cost and revealing contact block if inputs are valid*/
 	switch (true) {
 		case (isNaN(formInputs.tickets.number.value)):
 			formInputs.tickets.error.innerHTML = 'Please enter a valid number!';
