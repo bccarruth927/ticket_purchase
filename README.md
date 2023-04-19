@@ -1,5 +1,7 @@
 # Ticket Purchase Webpage
 
+This project was a part of the CMST 388 course *Fundamentals of JavaScript* provided by UMGC. Below are a list of features I created using JavaScript to complete the assignment requirements. I also utilized this project as an opportuity to practice more Git commands and workflow to better master my skills using the tool.
+
 ## Features
 
 There are a few unique features to this webpage that I implemented to test various skills with JavaScript. Listed are the focal features of the project:
