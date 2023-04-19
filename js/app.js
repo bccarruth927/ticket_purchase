@@ -34,7 +34,7 @@ timer = setInterval( function(){
 	if (minute == 0 && second == 1) {
 		document.getElementById('timer').innerHTML = '00:00';
 		alert('Sorry your time has expired! Please try again if you still wish to purchase tickets!');
-		location.href;
+		window.location.reload(true);
 	//Countdown timer functionality
 	} else {
 		//Decrease the timer by 1 second each interval
@@ -42,14 +42,18 @@ timer = setInterval( function(){
 		//Conditional for if the second variable reaches 0 reduce minute by 1 and reset second variable to 60
 		if (second == 0) {
 			minute--;
-			second = 60;
+			second = 59;
 			//Conditional for if the minute reaches 0 the minute variable changes
 			if (minute == 0) {
 				minute = minute;
 			}
 		}
 		//The change in the HTML based on the interval adjustments
-		document.getElementById('timer').innerHTML = `${minute}:${second}`;
+		if (second < 10) {
+			document.getElementById('timer').innerHTML = `${minute}:0${second}`;
+		} else {
+			document.getElementById('timer').innerHTML = `${minute}:${second}`;
+		}
 	}
 }, 1000);
 
